@@ -11,24 +11,10 @@ pipeline {
         stage ('Terraform Initialize') {
             agent { label 'master-agent' }
             steps {
-                sh 'cd terraform && terraform init'
+                sh 'cd terraform && terraform init; terraform plan; terraform apply -auto-approve;'
             }
         }
-
-        stage ('Terraform Plan') {
-            agent { label 'master-agent' }
-            steps {
-                sh 'terraform plan'
-            }
-        }
-
-        stage ('Terraform Apply') {
-            agent { label 'master-agent' }
-            steps {
-                sh 'terraform apply -auto-approve'
-            }
-        }
-
+        
         stage ('Wait for 3 mins') {
             agent { label 'master-agent' }
             steps {
