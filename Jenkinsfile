@@ -11,7 +11,7 @@ pipeline {
         stage ('Terraform Initialize') {
             agent { label 'master-agent' }
             steps {
-                sh 'terraform init'
+                sh 'cd terraform && terraform init'
             }
         }
 
