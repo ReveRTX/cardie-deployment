@@ -35,12 +35,12 @@ provisioner "local-exec" {
   command = <<EOT
   sudo sleep 60
   sudo ssh-keygen -R ${self.public_ip}
-  pwd
-  sudo ANSIBLE_HOST_KEY_CHECKING=false ansible -i ${self.public_ip}, /var/lib/jenkins/workspace/cardie-java-game/playbook.yaml -u ec2-user --private-key /home/ec2-user/.keys/harsha-server.pem
+  sudo ANSIBLE_HOST_KEY_CHECKING=false ansible -i ${self.public_ip}, playbook.yaml -u ec2-user --private-key /home/ec2-user/.keys/harsha-server.pem
   EOT
   }
 }
 
+# Attach Elastic IP
 resource "aws_eip" "slave-server-eip" {
   instance = aws_instance.slave-server.id
 }
