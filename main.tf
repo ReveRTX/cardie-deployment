@@ -34,9 +34,8 @@ resource "aws_instance" "slave-server" {
 provisioner "local-exec" {
   command = <<EOT
   sudo sleep 60
-  sudo mkdir -p /root/.ssh && sudo touch /root/.ssh/known_hosts
   sudo ssh-keygen -R ${self.public_ip}
-  sudo ANSIBLE_HOST_KEY_CHECKING=false ansible -i ${self.public_ip}, playbook.yaml -u ec2-user --private-key /home/ec2-user/.keys/harsha-server.pem
+  sudo ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i ${self.public_ip}, playbook.yaml -u ec2-user --private-key /home/ec2-user/.keys/harsha-server.pem
   EOT
   }
 }
