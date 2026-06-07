@@ -2,19 +2,17 @@
   remote_user: ec2-user
   become: yes
   tasks:
-  - name: "Install Java-21, maven and tomcat10"
+  - name: "Install Java-21, maven and docker"
     shell:
       cmd: |
         yum update && yum upgrade -y;
         yum install java-21-amazon-corretto -y;
         yum install maven -y;
-        yum install tomcat10 -y;
-    notify: "enable-start-restart-tomcat10"
+        yum install docker -y;
+    notify: "enable-start-docker"
 
   handlers:
-  - name: "enable-start-restart-tomcat10"
+  - name: "enable-start-docker"
     shell:
       cmd: |
-        systemctl enable tomcat10;
-        systemctl start tomcat10;
-        systemctl restart tomcat10;
+        systemctl enable docker; systemctl start docker;
